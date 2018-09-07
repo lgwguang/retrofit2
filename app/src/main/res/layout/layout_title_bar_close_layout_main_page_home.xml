@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:id="@+id/toolbar2">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="11dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_logo_qrcode_gray"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="17dp"
+            android:background="@drawable/iv_logo_qrcode_gray" />
+
+        <ImageView
+            android:id="@+id/iv_logo_pay_banlance_gray"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="17dp"
+            android:background="@drawable/iv_logo_pay_banlance_gray" />
+
+        <ImageView
+            android:id="@+id/iv_logo_quick_transfer_gray"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="17dp"
+            android:background="@drawable/iv_logo_quick_transfer_gray" />
+
+        <ImageView
+            android:id="@+id/iv_logo_my_account_gray"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="17dp"
+            android:background="@drawable/iv_logo_my_account_gray" />
+
+        <ImageView
+            android:id="@+id/iv_logo_search_gray"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="17dp"
+            android:background="@drawable/iv_logo_search_gray" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_message_when_close_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_logo_message_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/iv_logo_message_gray" />
+    </LinearLayout>
+</RelativeLayout>
