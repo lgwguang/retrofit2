@@ -5,14 +5,18 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.util.LogPrinter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,22 +42,68 @@ public class NewMainActivity extends AppCompatActivity {
 
 
     RecyclerView recyclerView;
-    AppBarLayout appbarLayout_home;
+    AppBarLayout appbarLayout;
     RelativeLayout toolbar1, toolbar2;
-
+    CollapsingToolbarLayout collapsingToolbar;
     List<Book> mlsit = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_new);
-        initStatuBar();
+        initStatuBar1();
         recyclerView = findViewById(R.id.recyclerView);
-        appbarLayout_home = findViewById(R.id.appbarLayout_home);
+        appbarLayout = findViewById(R.id.appbarLayout_home);
+        collapsingToolbar = findViewById(R.id.collapsingToolbar);
         toolbar1 = findViewById(R.id.toolbar1);
         toolbar2 = findViewById(R.id.toolbar2);
+        appbarLayout.addOnOffsetChangedListener(onOffsetChangedListener);
+
         initBook();
         initData();
     }
+
+    private AppBarLayout.OnOffsetChangedListener onOffsetChangedListener = new AppBarLayout.OnOffsetChangedListener() {
+        @Override
+        public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+            Log.d("TAG","滑动距离："+verticalOffset+"，总距离："+appBarLayout.getTotalScrollRange());
+            int totalScrollRange = appBarLayout.getTotalScrollRange();
+
+            if(verticalOffset>0){
+                //向下滑动
+
+
+            }else{
+                //向上滑动
+                if(Math.abs(verticalOffset)==totalScrollRange){
+                    toolbar2.setVisibility(View.VISIBLE);
+                    toolbar1.setVisibility(View.GONE);
+
+//                    AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);//初始化操作，参数传入1和0，即由透明度1变化到透明度为0
+//                    toolbar2.startAnimation(alphaAnimation);//开始动画
+//                    alphaAnimation.setFillAfter(true);//动画结束后保持状态
+//                    alphaAnimation.setDuration(2000);//动画持续时间
+//                    setColor(Math.abs(verticalOffset));
+                    initStatuBar();
+                }else{
+                    initStatuBar1();
+                    toolbar2.setVisibility(View.GONE);
+                    toolbar1.setVisibility(View.VISIBLE);
+
+                }
+
+
+            }
+
+        }
+    };
+
+    public void setColor(float fraction){
+        int i = changeAlpha(android.R.color.darker_gray, fraction);
+        collapsingToolbar.setBackgroundColor(i);
+    }
+
+
+
     /** 根据百分比改变颜色透明度 */
     public int changeAlpha(int color, float fraction) {
         int red = Color.red(color);
@@ -64,13 +114,18 @@ public class NewMainActivity extends AppCompatActivity {
     }
     private void initData() {
 
+
+
+
+
+
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutmanager);
         BookBaseAdapter adapter = new BookBaseAdapter(mlsit);
         recyclerView.setAdapter(adapter);
     }
 
-    class BookBaseAdapter extends RecyclerView.Adapter<ViewHolder>{
+    class BookBaseAdapter extends RecyclerView.Adapter<BookViewHolder>{
         private List<Book> mBookList;
         public BookBaseAdapter(List<Book> mBookList) {
             this.mBookList = mBookList;
@@ -79,15 +134,15 @@ public class NewMainActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book,parent,false);
-            ViewHolder holder = new ViewHolder(view);
+            BookViewHolder holder = new BookViewHolder(view);
             return holder;
 
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
             Book book = mBookList.get(position);
             holder.bookname.setText(book.name);
         }
@@ -99,17 +154,19 @@ public class NewMainActivity extends AppCompatActivity {
 
 
     }
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    static class BookViewHolder extends RecyclerView.ViewHolder{
         TextView bookname;
 
-        public ViewHolder(View view) {
+        public BookViewHolder(View view) {
             super(view);
             bookname = (TextView) view.findViewById(R.id.book_name);
         }
     }
     class Book{
-        public String name;
-        public Book(String name){}
+        private String name;
+        public Book(String name){
+            this.name = name;
+        }
     }
 
     private void initBook() {
@@ -123,8 +180,12 @@ public class NewMainActivity extends AppCompatActivity {
         }
     }
 
-        private void initStatuBar() {
+    private void initStatuBar() {
         StatusBarUtil.setLightMode(this);
         StatusBarUtil.setColor(this, Color.parseColor("#FFFFFF"),0);
+    }
+    private void initStatuBar1() {
+        StatusBarUtil.setDarkMode(this);
+        StatusBarUtil.setColor(this, Color.parseColor("#0000FF"),0);
     }
 }
