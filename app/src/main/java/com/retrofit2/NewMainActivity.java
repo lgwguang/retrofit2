@@ -1,6 +1,5 @@
 package com.retrofit2;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,34 +8,18 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.LogPrinter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.animation.AlphaAnimation;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import com.jaeger.library.StatusBarUtil;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewMainActivity extends AppCompatActivity {
 
@@ -45,6 +28,7 @@ public class NewMainActivity extends AppCompatActivity {
     AppBarLayout appbarLayout;
     RelativeLayout toolbar1, toolbar2;
     CollapsingToolbarLayout collapsingToolbar;
+    Toolbar toolbar_layout_main_page_home;
     List<Book> mlsit = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +38,7 @@ public class NewMainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         appbarLayout = findViewById(R.id.appbarLayout_home);
         collapsingToolbar = findViewById(R.id.collapsingToolbar);
+        toolbar_layout_main_page_home = findViewById(R.id.toolbar_layout_main_page_home);
         toolbar1 = findViewById(R.id.toolbar1);
         toolbar2 = findViewById(R.id.toolbar2);
         appbarLayout.addOnOffsetChangedListener(onOffsetChangedListener);
@@ -67,12 +52,7 @@ public class NewMainActivity extends AppCompatActivity {
         public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
             Log.d("TAG","滑动距离："+verticalOffset+"，总距离："+appBarLayout.getTotalScrollRange());
             int totalScrollRange = appBarLayout.getTotalScrollRange();
-
-            if(verticalOffset>0){
-                //向下滑动
-
-
-            }else{
+            if(verticalOffset<=0){
                 //向上滑动
                 if(Math.abs(verticalOffset)==totalScrollRange){
                     toolbar2.setVisibility(View.VISIBLE);
@@ -90,6 +70,7 @@ public class NewMainActivity extends AppCompatActivity {
                     toolbar1.setVisibility(View.VISIBLE);
 
                 }
+            }else{
 
 
             }
@@ -113,12 +94,6 @@ public class NewMainActivity extends AppCompatActivity {
         return Color.argb(alpha, red, green, blue);
     }
     private void initData() {
-
-
-
-
-
-
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutmanager);
         BookBaseAdapter adapter = new BookBaseAdapter(mlsit);
