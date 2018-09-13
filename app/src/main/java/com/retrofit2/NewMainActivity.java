@@ -57,12 +57,6 @@ public class NewMainActivity extends AppCompatActivity {
                 if(Math.abs(verticalOffset)==totalScrollRange){
                     toolbar2.setVisibility(View.VISIBLE);
                     toolbar1.setVisibility(View.GONE);
-
-//                    AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);//初始化操作，参数传入1和0，即由透明度1变化到透明度为0
-//                    toolbar2.startAnimation(alphaAnimation);//开始动画
-//                    alphaAnimation.setFillAfter(true);//动画结束后保持状态
-//                    alphaAnimation.setDuration(2000);//动画持续时间
-//                    setColor(Math.abs(verticalOffset));
                     initStatuBar();
                 }else{
                     initStatuBar1();
@@ -70,9 +64,6 @@ public class NewMainActivity extends AppCompatActivity {
                     toolbar1.setVisibility(View.VISIBLE);
 
                 }
-            }else{
-
-
             }
 
         }
