@@ -11,7 +11,7 @@ android {
         debug {
             keyAlias 'guang'
             keyPassword '986114497'
-            storeFile file('E:/keystore/guang.jks')
+            storeFile file('guang.jks')
             storePassword '986114497'
         }
     }
