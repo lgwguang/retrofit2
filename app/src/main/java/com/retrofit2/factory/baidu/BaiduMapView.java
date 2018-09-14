@@ -3,38 +3,46 @@ package com.retrofit2.factory.baidu;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import com.baidu.mapapi.map.MapView;
+import com.retrofit2.factory.base.BaseMapView;
 
-import com.retrofit2.factory.IMapView;
+public class BaiduMapView extends BaseMapView{
 
-public class BaiduMapView implements IMapView{
-
-    Context context;
-
+    private MapView mapView;
     public BaiduMapView(Context context) {
-        this.context = context;
-    }
-
-    public Context getContext() {
-        return context;
+        super(context);
     }
 
     @Override
     public View getView() {
-        return null;
+        if(mapView == null){
+            mapView = new MapView(getContext());
+        }
+        return mapView;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
+        this.mapView.onCreate(getContext(),savedInstanceState);
     }
 
     @Override
     public void onPause() {
+        this.mapView.onPause();
+    }
 
+    @Override
+    public void onDestroy() {
+        this.mapView.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        this.mapView.onSaveInstanceState(outState);
     }
 
     @Override
     public void onResume() {
-
+        this.mapView.onResume();
     }
 }

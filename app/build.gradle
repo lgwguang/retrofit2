@@ -1,6 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'guang'
+            keyPassword '986114497'
+            storeFile file('E:/keystore/guang.jks')
+            storePassword '986114497'
+        }
+        debug {
+            keyAlias 'guang'
+            keyPassword '986114497'
+            storeFile file('E:/keystore/guang.jks')
+            storePassword '986114497'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.retrofit2"
@@ -12,9 +26,16 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+    }
+    productFlavors {
     }
 }
 
@@ -34,4 +55,5 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
     implementation files('libs/BaiduLBS_Android.jar')
+    implementation files('libs/AMap3DMap_6.4.1_AMapSearch_6.1.0_AMapLocation_4.2.0_20180906.jar')
 }

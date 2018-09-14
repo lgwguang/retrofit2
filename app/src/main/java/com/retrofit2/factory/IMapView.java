@@ -9,7 +9,11 @@ public interface IMapView {
 
     void onCreate(Bundle savedInstanceState);
 
+    void onResume();
+
     void onPause();
 
-    void onResume();
+    void onDestroy();
+
+    void onSaveInstanceState(Bundle outState);
 }

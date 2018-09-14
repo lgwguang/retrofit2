@@ -13,8 +13,8 @@ public abstract class BaseMapView implements IMapView{
         this.context = context;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-
+    public Context getContext() {
+        return context;
     }
+
 }
